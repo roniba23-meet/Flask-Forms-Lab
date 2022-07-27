@@ -10,8 +10,7 @@ app = Flask(  # Create a flask app
 app.config['SECRET_KEY'] = 'super-secret-key'
 
 
-username = "llo2ay"
-password = "123"
+accounts= {"roni":"123", "lia":"345", "tal":"565"}
 facebook_friends=["Loai","Yonathan","Judeh", "George", "Fouad", "Celina"]
 
 
@@ -19,11 +18,14 @@ facebook_friends=["Loai","Yonathan","Judeh", "George", "Fouad", "Celina"]
 def login():
 	if request.method=='GET':
 		return render_template('login.html')	
-	else:
-		if password == request.form['password'] and username==request.form['username']:
-			return redirect(url_for('home'))
 
-	  	
+	for i in accounts:
+
+		if accounts[i]== request.form['password'] and i==request.form['username']:
+			return redirect(url_for('home'))
+		else:
+			return render_template('login.html')
+  	
 
 
 @app.route('/home', methods =['GET', 'POST'])
