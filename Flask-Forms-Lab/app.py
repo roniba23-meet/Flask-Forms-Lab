@@ -16,16 +16,21 @@ facebook_friends=["Loai","Yonathan","Judeh", "George", "Fouad", "Celina"]
 
 @app.route('/', methods = ['GET', 'POST'])
 def login():
+	flag= "false"
 	if request.method=='GET':
 		return render_template('login.html')	
 
 	for i in accounts:
+		print(i)
+		if accounts[i]== request.form['password'] and i==request.form['username'] and flag=="false":
+			flag="true"
 
-		if accounts[i]== request.form['password'] and i==request.form['username']:
-			return redirect(url_for('home'))
-		else:
-			return render_template('login.html')
-  	
+	if (flag=="true"):
+		return redirect(url_for('home'))
+		
+	else:
+		return render_template('login.html')
+		
 
 
 @app.route('/home', methods =['GET', 'POST'])
